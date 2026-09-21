@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MOIL Dashboard</title>
+
+<!-- Leaflet -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Segoe UI,Arial,sans-serif;
+}
+
+html,body{
+width:100%;
+height:100%;
+overflow:hidden;
+background:#eef3fa;
+}
+
+html{
+scroll-behavior:smooth;
+}
+
+.container{
+display:flex;
+width:100vw;
+height:100vh;
+}
+
+
+/* =========================
+   SIDEBAR
+========================= */
+
+.sidebar{
+width:190px;
+background:#083a86;
+color:white;
+padding:18px;
+display:flex;
+flex-direction:column;
+}
+
+
+/* =========================
+   MOIL LOGO
+   CODE SE BANAYA GAYA HAI
+========================= */
+
+.logo{
+width:65px;
+height:65px;
+
+border-radius:50%;
+
+background:#0b63ff;
+
+display:flex;
+flex-direction:column;
+
+align-items:center;
+justify-content:center;
+
+margin:0 auto 20px;
+
+color:white;
+
+font-weight:bold;
+
+line-height:1;
+}
+
+.logo .hindi{
+font-size:12px;
+font-weight:bold;
+
+margin-bottom:3px;
+}
+
+.logo .english{
+font-size:13px;
+font-weight:bold;
+
+letter-spacing:-0.5px;
+}
+
+
+/* =========================
+   MENU
+========================= */
+
+.menu{
+display:flex;
+flex-direction:column;
+gap:8px;
+margin-top:10px;
+}
+
+.menu a{
+color:white;
+text-decoration:none;
+padding:12px;
+border-radius:8px;
+font-size:15px;
+transition:.3s;
+}
+
+.menu a:hover,
+.menu a.active{
+background:#1f7aff;
+}
+
+
+/* =========================
+   SIDEBAR FOOTER
+========================= */
+
+.footer{
+margin-top:auto;
+font-size:12px;
+color:#dbe7ff;
+line-height:18px;
+}
+
+
+/* =========================
+   MAIN
+========================= */
+
+.main{
+flex:1;
+display:flex;
+flex-direction:column;
+height:100%;
+overflow:auto;
+}
+
+
+/* =========================
+   TOP BAR
+========================= */
+
+.topbar{
+height:72px;
+
+background:#083a86;
+
+color:white;
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+padding:15px 22px;
+
+flex-shrink:0;
+}
+
+.topbar h1{
+font-size:23px;
+}
+
+.topbar p{
+font-size:13px;
+}
+
+.profile{
+font-size:14px;
+}
+
+
+/* =========================
+   CONTENT
+========================= */
+
+.content{
+flex:1;
+
+padding:12px;
+
+display:flex;
+
+flex-direction:column;
+
+gap:10px;
+}
+
+
+/* =========================
+   CARDS
+========================= */
+
+.cards{
+display:grid;
+
+grid-template-columns:repeat(4,1fr);
+
+gap:10px;
+
+height:88px;
+}
+
+.card{
+background:white;
+
+border-radius:10px;
+
+padding:10px;
+
+display:flex;
+
+flex-direction:column;
+
+justify-content:center;
+
+border:1px solid #d7e4f5;
+}
+
+.card h3{
+font-size:14px;
+color:#0d3b75;
+}
+
+.card h2{
+margin-top:6px;
+
+font-size:24px;
+
+color:#083a86;
+}
+
+
+/* =========================
+   MAIN GRID
+========================= */
+
+.grid{
+flex:1;
+
+display:grid;
+
+grid-template-columns:2fr 1fr;
+
+gap:10px;
+}
+
+.left-col,
+.right-col{
+display:flex;
+
+flex-direction:column;
+
+gap:10px;
+}
+
+
+/* =========================
+   BOX
+========================= */
+
+.box{
+background:white;
+
+border-radius:10px;
+
+padding:10px;
+
+border:1px solid #d7e4f5;
+}
+
+.box h3{
+color:#083a86;
+
+margin-bottom:8px;
+
+font-size:17px;
+}
+
+
+/* =========================
+   MAP
+========================= */
+
+.map-box{
+flex:1.45;
+}
+
+#map{
+width:100%;
+
+height:100%;
+
+min-height:240px;
+
+border-radius:8px;
+}
+
+
+/* =========================
+   CHART
+========================= */
+
+.chart-box{
+flex:1.25;
+}
+
+#barChart{
+height:220px!important;
+}
+
+#lineChart{
+height:170px!important;
+}
+
+
+/* =========================
+   RISK
+========================= */
+
+.risk{
+background:#fff7d6;
+
+border:1px solid #ffd46a;
+
+border-radius:10px;
+
+padding:15px;
+
+text-align:center;
+}
+
+.risk h2{
+font-size:24px;
+
+color:#d98a00;
+}
+
+.risk p{
+font-size:13px;
+
+margin-top:6px;
+}
+
+
+/* =========================
+   ACTIONS
+========================= */
+
+.actions{
+flex:1;
+}
+
+.actions ul{
+padding-left:18px;
+}
+
+.actions li{
+margin:8px 0;
+
+font-size:13px;
+}
+
+
+/* =========================
+   SETTINGS
+========================= */
+
+.settings-box p{
+margin:6px 0;
+
+font-size:13px;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:1100px){
+
+html,body{
+overflow:auto;
+}
+
+.cards{
+grid-template-columns:repeat(2,1fr);
+
+height:auto;
+}
+
+.grid{
+grid-template-columns:1fr;
+}
+
+.sidebar{
+width:170px;
+}
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+<div class="container">
+
+
+<!-- ==================================================
+     SIDEBAR
+================================================== -->
+
+<div class="sidebar">
+
+
+<!-- =========================
+     MOIL LOGO
+========================= -->
+
+<div class="logo">
+<div class="hindi">
+MANGANEX
+</div>
+    
+    <div class="english">
+ AI
+    </div>
+
+</div>
+
+
+<!-- =========================
+     MENU
+========================= -->
+
+<div class="menu">
+
+<a href="dashboard1.html" class="active">
+🏠 Dashboard
+</a>
+
+<a href="mine-overview.html">
+⛰ Mine Overview
+</a>
+
+<a href="predictions.html">
+🧠 Predictions
+</a>
+
+<a href="reports.html">
+📄 Reports
+</a>
+
+<a href="settings.html">
+⚙ Settings
+</a>
+
+</div>
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<div class="footer">
+
+<b>MANGANEX AI</b>
+<br>
+
+Manganese for a stronger tomorrow
+
+</div>
+
+</div>
+
+
+
+<!-- ==================================================
+     MAIN
+================================================== -->
+
+<div class="main">
+
+
+<!-- =========================
+     TOP BAR
+========================= -->
+
+<div class="topbar">
+
+<div>
+
+<h1>
+MANGANEX AI
+</h1>
+
+<p>
+AI Powered Reserve Estimation & Production Planning
+</p>
+
+</div>
+
+
+<div class="profile">
+
+👤 Team Nextgen Coders_RDR
+
+</div>
+
+</div>
+
+
+
+<!-- =========================
+     CONTENT
+========================= -->
+
+<div class="content" id="dashboard">
+
+
+<!-- ==================================================
+     CARDS
+================================================== -->
+
+<div class="cards">
+
+
+<div class="card">
+
+<h3>
+Estimated Reserves
+</h3>
+
+<h2 id="reserve">
+2.48 MT
+</h2>
+
+</div>
+
+
+
+<div class="card">
+
+<h3>
+Planned Production
+</h3>
+
+<h2 id="planned">
+50,000 T
+</h2>
+
+</div>
+
+
+
+<div class="card">
+
+<h3>
+Predicted Production
+</h3>
+
+<h2 id="predicted">
+44,000 T
+</h2>
+
+</div>
+
+
+
+<div class="card">
+
+<h3>
+Shortfall
+</h3>
+
+<h2 id="shortfall">
+6,000 T
+</h2>
+
+</div>
+
+
+</div>
+
+
+
+<!-- ==================================================
+     MAIN GRID
+================================================== -->
+
+<div class="grid">
+
+
+<!-- ==================================================
+     LEFT COLUMN
+================================================== -->
+
+<div class="left-col">
+
+
+<!-- =========================
+     MAP BOX
+========================= -->
+
+<div class="box map-box" id="mine-overview">
+
+<h3>
+Mine Area - Potential Manganese Zones
+</h3>
+
+<div id="map"></div>
+
+</div>
+
+
+
+<!-- =========================
+     RESERVE CHART
+========================= -->
+
+<div class="box chart-box">
+
+<h3>
+Reserve Estimation by Zone
+</h3>
+
+<canvas id="barChart"></canvas>
+
+</div>
+
+
+</div>
+
+
+
+<!-- ==================================================
+     RIGHT COLUMN
+================================================== -->
+
+<div class="right-col">
+
+
+<!-- =========================
+     PRODUCTION TREND
+========================= -->
+
+<div class="box" id="predictions">
+
+<h3>
+Production Trend
+</h3>
+
+<canvas id="lineChart"></canvas>
+
+</div>
+
+
+
+<!-- =========================
+     RISK
+========================= -->
+
+<div class="risk">
+
+<h2>
+Medium Risk
+</h2>
+
+<p>
+Production may not meet target
+(12% shortfall expected).
+</p>
+
+</div>
+
+
+
+<!-- =========================
+     RECOMMENDED ACTIONS
+========================= -->
+
+<div class="box actions" id="reports">
+
+<h3>
+Recommended Actions
+</h3>
+
+<ul>
+
+<li>
+Prioritize mining in Zone A.
+</li>
+
+<li>
+Increase drilling in Zone B.
+</li>
+
+<li>
+Reduce equipment downtime.
+</li>
+
+<li>
+Review next quarter production plan.
+</li>
+
+</ul>
+
+</div>
+
+
+
+<!-- =========================
+     SETTINGS
+========================= -->
+
+<div class="box settings-box" id="settings">
+
+<h3>
+Settings
+</h3>
+
+<p>
+Theme : Default
+</p>
+
+<p>
+Map : OpenStreetMap
+</p>
+
+<p>
+Data : CSV Based
+</p>
+
+<p>
+Dashboard : AI Ready
+</p>
+
+</div>
+
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<!-- ==================================================
+     JAVASCRIPT
+================================================== -->
+
+<script>
+
+
+/* ==================================================
+   EMBEDDED CSV
+================================================== */
+
+const csv = `estimated,planned,predicted,shortfall
+2.48 MT,50000 T,44000 T,6000 T`;
+
+
+const values =
+csv.split("\n")[1].split(",");
+
+
+document.getElementById("reserve").innerHTML =
+values[0];
+
+document.getElementById("planned").innerHTML =
+values[1];
+
+document.getElementById("predicted").innerHTML =
+values[2];
+
+document.getElementById("shortfall").innerHTML =
+values[3];
+
+
+
+/* ==================================================
+   LEAFLET MAP
+   OPENSTREETMAP
+================================================== */
+
+const map =
+L.map("map").setView(
+    [21.1458,79.0882],
+    12
+);
+
+
+L.tileLayer(
+    "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+    {
+        attribution:"© OpenStreetMap"
+    }
+).addTo(map);
+
+
+
+/* =========================
+   HIGH POTENTIAL
+========================= */
+
+L.circle(
+    [21.148,79.08],
+    {
+        radius:2500,
+
+        color:"red",
+
+        fillColor:"red",
+
+        fillOpacity:.4
+    }
+)
+.addTo(map)
+.bindPopup("High Potential");
+
+
+
+/* =========================
+   MEDIUM POTENTIAL
+========================= */
+
+L.circle(
+    [21.13,79.10],
+    {
+        radius:1800,
+
+        color:"orange",
+
+        fillColor:"orange",
+
+        fillOpacity:.4
+    }
+)
+.addTo(map)
+.bindPopup("Medium Potential");
+
+
+
+/* =========================
+   LOW POTENTIAL
+========================= */
+
+L.circle(
+    [21.11,79.06],
+    {
+        radius:1500,
+
+        color:"green",
+
+        fillColor:"green",
+
+        fillOpacity:.4
+    }
+)
+.addTo(map)
+.bindPopup("Low Potential");
+
+
+
+/* ==================================================
+   PRODUCTION TREND CHART
+================================================== */
+
+new Chart(
+    document.getElementById("lineChart"),
+    {
+
+        type:"line",
+
+        data:{
+
+            labels:[
+                "Jan",
+                "Feb",
+                "Mar",
+                "Apr",
+                "May",
+                "Jun",
+                "Jul",
+                "Aug",
+                "Sep",
+                "Oct",
+                "Nov",
+                "Dec"
+            ],
+
+            datasets:[{
+
+                data:[
+                    25,
+                    27,
+                    30,
+                    32,
+                    34,
+                    36,
+                    33,
+                    35,
+                    40,
+                    47,
+                    52,
+                    49
+                ],
+
+                borderColor:"#1f7aff",
+
+                backgroundColor:
+                "rgba(31,122,255,.15)",
+
+                fill:true,
+
+                tension:.4
+
+            }]
+
+        },
+
+        options:{
+
+            responsive:true,
+
+            maintainAspectRatio:false,
+
+            plugins:{
+
+                legend:{
+                    display:false
+                }
+
+            }
+
+        }
+
+    }
+);
+
+
+
+/* ==================================================
+   RESERVE ESTIMATION BAR CHART
+================================================== */
+
+new Chart(
+    document.getElementById("barChart"),
+    {
+
+        type:"bar",
+
+        data:{
+
+            labels:[
+                "Zone A",
+                "Zone B",
+                "Zone C",
+                "Zone D",
+                "Zone E"
+            ],
+
+            datasets:[{
+
+                data:[
+                    82,
+                    64,
+                    48,
+                    32,
+                    20
+                ],
+
+                backgroundColor:[
+
+                    "#1f7aff",
+
+                    "#f4a300",
+
+                    "#1fb56a",
+
+                    "#8064e8",
+
+                    "#ef5350"
+
+                ],
+
+                borderRadius:6
+
+            }]
+
+        },
+
+        options:{
+
+            responsive:true,
+
+            maintainAspectRatio:false,
+
+            plugins:{
+
+                legend:{
+                    display:false
+                }
+
+            },
+
+            scales:{
+
+                y:{
+                    beginAtZero:true
+                }
+
+            }
+
+        }
+
+    }
+);
+
+</script>
+
+</body>
+</html>

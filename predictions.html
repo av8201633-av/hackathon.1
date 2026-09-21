@@ -1,0 +1,2007 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MOIL Manganese Intelligence - Predictions</title>
+
+    <style>
+
+        /* =========================
+           BASIC RESET
+        ========================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #f8fbff;
+            color: #173e73;
+            overflow-x: hidden;
+        }
+
+
+        /* =========================
+           SIDEBAR
+        ========================= */
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+
+            width: 230px;
+
+            background: linear-gradient(
+                180deg,
+                #0d315d,
+                #0a2d57
+            );
+
+            color: white;
+
+            z-index: 1000;
+        }
+
+
+        /* LOGO */
+
+        .logo {
+            width: 92px;
+            height: 92px;
+
+            margin: 19px auto 24px;
+
+            border-radius: 50%;
+
+            background: #0754d8;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            text-align: center;
+
+            color: white;
+
+            font-size: 13px;
+            line-height: 23px;
+            font-weight: bold;
+
+            box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+        }
+
+
+        /* NAVIGATION */
+
+        .nav {
+            padding: 0 8px;
+        }
+
+        .nav a {
+            height: 56px;
+
+            display: flex;
+            align-items: center;
+
+            padding: 0 15px;
+
+            margin-bottom: 5px;
+
+            border-radius: 8px;
+
+            color: white;
+
+            text-decoration: none;
+
+            font-size: 16px;
+
+            transition: 0.2s ease;
+        }
+
+        .nav a:hover {
+            background: rgba(255,255,255,0.12);
+        }
+
+        .nav a.active {
+            background: linear-gradient(
+                90deg,
+                #167cf0,
+                #287fe8
+            );
+
+            box-shadow: 0 3px 8px rgba(0,0,0,0.12);
+        }
+
+
+        /* NAV ICON */
+
+        .nav-icon {
+            width: 38px;
+
+            margin-right: 8px;
+
+            text-align: center;
+
+            font-size: 24px;
+        }
+
+
+        /* COMPANY TEXT */
+
+        .company {
+            position: absolute;
+
+            left: 22px;
+            bottom: 60px;
+
+            color: #9bbce4;
+
+            font-size: 14px;
+
+            line-height: 23px;
+        }
+
+        .company strong {
+            color: #a8c8ee;
+
+            font-size: 16px;
+        }
+
+
+        /* =========================
+           MAIN AREA
+        ========================= */
+
+        .main {
+            margin-left: 230px;
+
+            min-height: 100vh;
+        }
+
+
+        /* =========================
+           HEADER
+        ========================= */
+
+        .header {
+            height: 97px;
+
+            padding: 0 28px 0 22px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            color: white;
+
+            background: linear-gradient(
+                100deg,
+                #173e72,
+                #16477f
+            );
+        }
+
+
+        .header-left h1 {
+            font-size: 30px;
+
+            margin-bottom: 7px;
+
+            letter-spacing: 0.2px;
+        }
+
+        .header-left p {
+            font-size: 17px;
+
+            color: #e5edf8;
+        }
+
+
+        /* HEADER RIGHT */
+
+        .header-right {
+            display: flex;
+            align-items: center;
+
+            gap: 20px;
+        }
+
+        .notification {
+            font-size: 27px;
+
+            color: white;
+        }
+
+        .header-line {
+            height: 43px;
+
+            width: 1px;
+
+            background: rgba(255,255,255,0.65);
+        }
+
+        .user {
+            display: flex;
+            align-items: center;
+
+            gap: 12px;
+
+            font-size: 15px;
+        }
+
+        .user-icon {
+            width: 40px;
+            height: 40px;
+
+            border-radius: 50%;
+
+            background: white;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            color: #8ea4bd;
+
+            font-size: 22px;
+        }
+
+        .arrow {
+            font-size: 18px;
+        }
+
+
+        /* =========================
+           CONTENT
+        ========================= */
+
+        .content {
+            padding: 25px 24px 40px;
+        }
+
+
+        /* PAGE TITLE */
+
+        .page-title {
+            font-size: 28px;
+
+            color: #163d70;
+
+            margin-bottom: 18px;
+        }
+
+
+        /* =========================
+           PREDICTION CARDS
+        ========================= */
+
+        .prediction-cards {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 21px;
+
+            margin-bottom: 24px;
+        }
+
+
+        .prediction-card {
+            min-height: 139px;
+
+            border: 1px solid #c9def6;
+
+            border-radius: 7px;
+
+            padding: 18px 20px;
+
+            display: flex;
+            align-items: center;
+
+            background: linear-gradient(
+                110deg,
+                #f9fcff,
+                #f3f8ff
+            );
+        }
+
+
+        /* TARGET CARD */
+
+        .prediction-card.target {
+            background: linear-gradient(
+                110deg,
+                #f7fffc,
+                #f1fbf8
+            );
+
+            border-color: #c8e9df;
+        }
+
+
+        /* SHORTFALL CARD */
+
+        .prediction-card.shortfall {
+            background: linear-gradient(
+                110deg,
+                #fffafa,
+                #fff4f5
+            );
+
+            border-color: #f3d3d6;
+        }
+
+
+        /* CARD ICON */
+
+        .card-icon {
+            width: 64px;
+            height: 64px;
+
+            flex-shrink: 0;
+
+            margin-right: 23px;
+
+            border-radius: 50%;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            color: white;
+
+            font-size: 29px;
+            font-weight: bold;
+        }
+
+
+        .purple {
+            background: linear-gradient(
+                145deg,
+                #8772ef,
+                #6755db
+            );
+        }
+
+        .green {
+            background: linear-gradient(
+                145deg,
+                #32bf7c,
+                #18a366
+            );
+        }
+
+        .red {
+            background: linear-gradient(
+                145deg,
+                #f74d51,
+                #ed3038
+            );
+        }
+
+
+        /* CARD TEXT */
+
+        .card-title {
+            font-size: 17px;
+
+            color: #173e73;
+
+            margin-bottom: 12px;
+        }
+
+        .card-number {
+            font-size: 34px;
+
+            font-weight: bold;
+
+            color: #123b73;
+        }
+
+
+        /* =========================
+           MIDDLE AREA
+        ========================= */
+
+        .middle-section {
+            display: grid;
+
+            grid-template-columns:
+                2.25fr 1fr;
+
+            gap: 18px;
+
+            margin-bottom: 16px;
+        }
+
+
+        /* =========================
+           GENERAL PANEL
+        ========================= */
+
+        .panel {
+            background: white;
+
+            border: 1px solid #cfe0f3;
+
+            border-radius: 7px;
+
+            box-shadow:
+                0 2px 8px rgba(
+                    35,
+                    80,
+                    130,
+                    0.03
+                );
+        }
+
+
+        /* =========================
+           PRODUCTION TREND
+        ========================= */
+
+        .trend-panel {
+            height: 350px;
+
+            padding: 15px 18px;
+        }
+
+
+        .panel-heading {
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            margin-bottom: 8px;
+        }
+
+
+        .heading-left {
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+        }
+
+
+        .heading-icon {
+            font-size: 25px;
+        }
+
+
+        .heading-title {
+            font-size: 19px;
+
+            font-weight: bold;
+
+            color: #153b70;
+        }
+
+
+        /* LEGEND */
+
+        .legend {
+            display: flex;
+
+            gap: 30px;
+
+            font-size: 14px;
+        }
+
+        .legend-item {
+            display: flex;
+
+            align-items: center;
+
+            gap: 7px;
+        }
+
+        .legend-line {
+            width: 23px;
+
+            height: 3px;
+
+            border-radius: 5px;
+        }
+
+        .blue-line {
+            background: #287be9;
+        }
+
+        .green-line {
+            background: #25ae72;
+        }
+
+
+        /* =========================
+           GRAPH
+        ========================= */
+
+        .graph-container {
+            position: relative;
+
+            height: 275px;
+
+            margin:
+                6px
+                10px
+                0
+                42px;
+
+            border-left: 2px solid #b6cde7;
+
+            border-bottom: 2px solid #b6cde7;
+        }
+
+
+        /* GRID LINES */
+
+        .grid-line {
+            position: absolute;
+
+            left: 0;
+            right: 0;
+
+            border-top: 1px solid #e3edf7;
+        }
+
+        .grid-1 {
+            top: 0;
+        }
+
+        .grid-2 {
+            top: 20%;
+        }
+
+        .grid-3 {
+            top: 40%;
+        }
+
+        .grid-4 {
+            top: 60%;
+        }
+
+        .grid-5 {
+            top: 80%;
+        }
+
+
+        /* Y AXIS */
+
+        .y-value {
+            position: absolute;
+
+            left: -39px;
+
+            font-size: 13px;
+
+            color: #315787;
+        }
+
+        .y80 {
+            top: -6px;
+        }
+
+        .y60 {
+            top: 18%;
+        }
+
+        .y40 {
+            top: 38%;
+        }
+
+        .y20 {
+            top: 58%;
+        }
+
+        .y0 {
+            bottom: -6px;
+        }
+
+
+        /* SVG */
+
+        .chart-svg {
+            position: absolute;
+
+            left: 0;
+            top: 0;
+
+            width: 100%;
+            height: 100%;
+
+            overflow: visible;
+        }
+
+
+        .target-path {
+            fill: none;
+
+            stroke: #287be9;
+
+            stroke-width: 2.7;
+        }
+
+
+        .actual-path {
+            fill: none;
+
+            stroke: #25ad72;
+
+            stroke-width: 2.7;
+        }
+
+
+        .target-point {
+            fill: #287be9;
+        }
+
+
+        .actual-point {
+            fill: #25ad72;
+        }
+
+
+        /* MONTHS */
+
+        .months {
+            position: absolute;
+
+            left: 0;
+            right: 0;
+
+            bottom: -29px;
+
+            display: flex;
+
+            justify-content: space-around;
+
+            color: #315787;
+
+            font-size: 13px;
+        }
+
+
+        /* =========================
+           AI SUMMARY
+        ========================= */
+
+        .summary-panel {
+            height: 350px;
+
+            padding: 12px 14px;
+        }
+
+
+        .summary-heading {
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            font-size: 19px;
+
+            font-weight: bold;
+
+            color: #174076;
+
+            margin-bottom: 9px;
+        }
+
+
+        .robot {
+            width: 58px;
+            height: 58px;
+
+            border-radius: 50%;
+
+            background: #dceeff;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 28px;
+        }
+
+
+        .summary-box {
+            height: 86px;
+
+            border: 1px solid #d7e7f8;
+
+            border-radius: 7px;
+
+            margin-bottom: 5px;
+
+            padding: 15px;
+
+            background: #fafdff;
+        }
+
+
+        .summary-label {
+            font-size: 15px;
+
+            color: #294e7c;
+
+            margin-bottom: 6px;
+        }
+
+
+        .summary-value {
+            font-size: 26px;
+
+            font-weight: bold;
+
+            color: #2176e4;
+        }
+
+
+        .red-text {
+            color: #f04449;
+        }
+
+
+        /* =========================
+           BOTTOM AREA
+        ========================= */
+
+        .bottom-section {
+            display: grid;
+
+            grid-template-columns:
+                1fr 1.75fr;
+
+            gap: 18px;
+        }
+
+
+        /* =========================
+           SHORTFALL RISK
+        ========================= */
+
+        .risk-panel {
+            min-height: 184px;
+
+            padding: 16px 22px;
+
+            background: linear-gradient(
+                110deg,
+                #fffafa,
+                #fff7f8
+            );
+
+            border: 1px solid #f1d2d5;
+
+            border-radius: 7px;
+        }
+
+
+        .risk-top {
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+        }
+
+
+        .risk-icon {
+            width: 48px;
+            height: 48px;
+
+            border-radius: 50%;
+
+            background: #ffe0e1;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            color: #ef4147;
+
+            font-size: 24px;
+
+            font-weight: bold;
+        }
+
+
+        .risk-title {
+            font-size: 18px;
+
+            font-weight: bold;
+
+            color: #a22c2f;
+        }
+
+
+        .risk-level {
+            margin-left: 20px;
+
+            padding: 7px 13px;
+
+            background: #ffe3a7;
+
+            color: #ec9700;
+
+            border-radius: 7px;
+
+            font-weight: bold;
+        }
+
+
+        .risk-description {
+            margin-left: 64px;
+
+            margin-top: 10px;
+
+            color: #2e527f;
+
+            font-size: 14px;
+
+            line-height: 22px;
+
+            max-width: 350px;
+        }
+
+
+        /* =========================
+           RECOMMENDED ACTIONS
+        ========================= */
+
+        .actions-panel {
+            min-height: 184px;
+
+            padding: 15px 18px;
+
+            background: linear-gradient(
+                110deg,
+                #f5fffc,
+                #f1fcf9
+            );
+
+            border: 1px solid #cce9e0;
+
+            border-radius: 7px;
+        }
+
+
+        .actions-heading {
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            font-size: 18px;
+
+            font-weight: bold;
+
+            color: #163e73;
+
+            margin-bottom: 8px;
+        }
+
+
+        .bulb {
+            font-size: 27px;
+
+            color: #20ae70;
+        }
+
+
+        .action {
+            display: flex;
+
+            align-items: center;
+
+            margin: 5px 0;
+
+            font-size: 14px;
+
+            color: #315682;
+        }
+
+
+        .action-number {
+            width: 25px;
+            height: 25px;
+
+            flex-shrink: 0;
+
+            border-radius: 50%;
+
+            background: #28ad72;
+
+            color: white;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            margin-right: 15px;
+
+            font-weight: bold;
+        }
+
+
+        /* =========================
+           ANCHOR TARGETS
+        ========================= */
+
+        .anchor-target {
+            scroll-margin-top: 100px;
+        }
+
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 1100px) {
+
+            .prediction-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .middle-section {
+                grid-template-columns: 1fr;
+            }
+
+            .bottom-section {
+                grid-template-columns: 1fr;
+            }
+
+            .trend-panel {
+                height: 350px;
+            }
+
+        }
+
+
+        @media (max-width: 750px) {
+
+            .sidebar {
+                width: 190px;
+            }
+
+            .main {
+                margin-left: 190px;
+            }
+
+            .header-left h1 {
+                font-size: 22px;
+            }
+
+            .header-left p {
+                font-size: 13px;
+            }
+
+            .user {
+                display: none;
+            }
+
+            .legend {
+                gap: 8px;
+
+                font-size: 11px;
+            }
+
+        }
+
+
+    </style>
+</head>
+
+
+<body>
+
+
+    <!-- =================================================
+         SIDEBAR
+    ================================================== -->
+
+    <aside class="sidebar">
+
+
+        <!-- MOIL LOGO -->
+
+        <div class="logo">
+
+            MANGANEX<br>
+            AI
+
+        </div>
+
+
+        <!-- NAVIGATION -->
+
+        <nav class="nav">
+
+
+            <a href="dashboard1.html">
+
+                <span class="nav-icon">
+                    ⌂
+                </span>
+
+                Dashboard
+
+            </a>
+
+
+            <a href="mine-overview.html">
+
+                <span class="nav-icon">
+                    ⛰
+                </span>
+
+                Mine Overview
+
+            </a>
+
+
+            <a href="predictions.html" class="active">
+
+                <span class="nav-icon">
+                    🧠
+                </span>
+
+                Predictions
+
+            </a>
+
+
+            <a href="reports.html">
+
+                <span class="nav-icon">
+                    ▤
+                </span>
+
+                Reports
+
+            </a>
+
+
+            <a href="settings.html">
+
+                <span class="nav-icon">
+                    ⚙
+                </span>
+
+                Settings
+
+            </a>
+
+
+        </nav>
+
+
+        <!-- COMPANY -->
+
+        <div class="company">
+
+            <strong>MANGANEX AI</strong>
+
+            <br>
+
+            Manganese for a
+
+            <br>
+
+            stronger tomorrow
+
+        </div>
+
+
+    </aside>
+
+
+
+    <!-- =================================================
+         MAIN
+    ================================================== -->
+
+    <main class="main">
+
+
+        <!-- =================================================
+             HEADER
+        ================================================== -->
+
+        <header class="header">
+
+
+            <div class="header-left">
+
+                <h1>
+                    MANGANEX AI
+                </h1>
+
+                <p>
+                    AI Powered Reserve Estimation &amp;
+                    Production Planning
+                </p>
+
+            </div>
+
+
+            <div class="header-right">
+
+
+                <div class="notification">
+                    ♧
+                </div>
+
+
+                <div class="header-line"></div>
+
+
+                <div class="user">
+
+
+                    <div class="user-icon">
+                        ●
+                    </div>
+
+
+                    <span>
+                        Team Nextgen Coders_RDR
+                    </span>
+
+
+                    <span class="arrow">
+                       ⌄
+                    </span>
+
+
+                </div>
+
+
+            </div>
+
+
+        </header>
+
+
+
+        <!-- =================================================
+             CONTENT
+        ================================================== -->
+
+        <div class="content">
+
+
+            <!-- ANCHOR -->
+
+            <section
+                id="predictions"
+                class="anchor-target"
+            >
+
+
+                <!-- PAGE TITLE -->
+
+                <h2 class="page-title">
+                    Predictions
+                </h2>
+
+
+
+                <!-- =================================================
+                     TOP CARDS
+                ================================================== -->
+
+                <div class="prediction-cards">
+
+
+                    <!-- PREDICTED PRODUCTION -->
+
+                    <div class="prediction-card">
+
+
+                        <div class="card-icon purple">
+
+                            ▮
+
+                        </div>
+
+
+                        <div>
+
+                            <div class="card-title">
+                                Predicted Production
+                            </div>
+
+                            <div class="card-number">
+                                44,000 T
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <!-- TARGET PRODUCTION -->
+
+                    <div class="prediction-card target">
+
+
+                        <div class="card-icon green">
+
+                            ◎
+
+                        </div>
+
+
+                        <div>
+
+                            <div class="card-title">
+                                Target Production
+                            </div>
+
+                            <div class="card-number">
+                                50,000 T
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <!-- SHORTFALL -->
+
+                    <div class="prediction-card shortfall">
+
+
+                        <div class="card-icon red">
+
+                            !
+
+                        </div>
+
+
+                        <div>
+
+                            <div class="card-title">
+                                Shortfall
+                            </div>
+
+                            <div class="card-number">
+                                6,000 T
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- =================================================
+                     MIDDLE SECTION
+                ================================================== -->
+
+                <div class="middle-section">
+
+
+                    <!-- =================================================
+                         PRODUCTION TREND
+                    ================================================== -->
+
+                    <div class="panel trend-panel">
+
+
+                        <div class="panel-heading">
+
+
+                            <div class="heading-left">
+
+
+                                <span class="heading-icon">
+                                    📈
+                                </span>
+
+
+                                <span class="heading-title">
+                                    Production Trend
+                                </span>
+
+
+                            </div>
+
+
+
+                            <!-- LEGEND -->
+
+                            <div class="legend">
+
+
+                                <div class="legend-item">
+
+                                    <span
+                                        class="legend-line blue-line">
+                                    </span>
+
+                                    Target Production
+
+                                </div>
+
+
+                                <div class="legend-item">
+
+                                    <span
+                                        class="legend-line green-line">
+                                    </span>
+
+                                    Actual Production
+
+                                </div>
+
+
+                            </div>
+
+
+                        </div>
+
+
+
+                        <!-- GRAPH -->
+
+                        <div class="graph-container">
+
+
+                            <!-- GRID -->
+
+                            <div class="grid-line grid-1"></div>
+
+                            <div class="grid-line grid-2"></div>
+
+                            <div class="grid-line grid-3"></div>
+
+                            <div class="grid-line grid-4"></div>
+
+                            <div class="grid-line grid-5"></div>
+
+
+
+                            <!-- Y VALUES -->
+
+                            <span class="y-value y80">
+                                80K
+                            </span>
+
+                            <span class="y-value y60">
+                                60K
+                            </span>
+
+                            <span class="y-value y40">
+                                40K
+                            </span>
+
+                            <span class="y-value y20">
+                                20K
+                            </span>
+
+                            <span class="y-value y0">
+                                0
+                            </span>
+
+
+
+                            <!-- SVG GRAPH -->
+
+                            <svg
+                                class="chart-svg"
+                                viewBox="0 0 1000 270"
+                                preserveAspectRatio="none"
+                            >
+
+
+                                <!-- TARGET LINE -->
+
+                                <polyline
+                                    class="target-path"
+                                    points="
+                                    20,145
+                                    100,138
+                                    180,120
+                                    260,111
+                                    340,107
+                                    420,114
+                                    500,108
+                                    580,102
+                                    660,95
+                                    740,96
+                                    820,80
+                                    900,68
+                                    980,84
+                                    "
+                                />
+
+
+                                <!-- ACTUAL LINE -->
+
+                                <polyline
+                                    class="actual-path"
+                                    points="
+                                    20,161
+                                    100,154
+                                    180,139
+                                    260,130
+                                    340,122
+                                    420,137
+                                    500,132
+                                    580,124
+                                    660,115
+                                    740,118
+                                    820,101
+                                    900,92
+                                    980,106
+                                    "
+                                />
+
+
+
+                                <!-- TARGET POINTS -->
+
+                                <circle
+                                    class="target-point"
+                                    cx="20"
+                                    cy="145"
+                                    r="5"
+                                />
+
+                                <circle
+                                    class="target-point"
+                                    cx="100"
+                                    cy="138"
+                                    r="5"
+                                />
+
+                                <circle
+                                    class="target-point"
+                                    cx="180"
+                                    cy="120"
+                                    r="5"
+                                />
+
+                                <circle
+                                    class="target-point"
+                                    cx="260"
+                                    cy="111"
+                                    r="5"
+                                />
+
+                                <circle
+                                    class="target-point"
+                                    cx="340"
+                                    cy="107"
+                                    r="5"
+                                />
+
+                                <circle
+                                    class="target-point"
+                                    cx="420"
+                                    cy="114"
+                                    r="5"
+                                />
+
+                                <circle
+                                    class="target-point"
+                                    cx="500"
+                                    cy="108"
+                                    r="5"
+                                />
+
+                                <circle
+                                    class="target-point"
+                                    cx="580"
+                                    cy="102"
+                                    r="5"
+                                />
+
+                                <circle
+                                    class="target-point"
+                                    cx="660"
+                                    cy="95"
+                                    r="5"
+                                />
+
+                                <circle
+                                    class="target-point"
+                                    cx="740"
+                                    cy="96"
+                                    r="5"
+                                />
+
+                                <circle
+                                    class="target-point"
+                                    cx="820"
+                                    cy="80"
+                                    r="5"
+                                />
+
+                                <circle
+                                    class="target-point"
+                                    cx="900"
+                                    cy="68"
+                                    r="5"
+                                />
+
+                                <circle
+                                    class="target-point"
+                                    cx="980"
+                                    cy="84"
+                                    r="5"
+                                />
+
+
+
+                                <!-- ACTUAL POINTS -->
+
+                                <circle
+                                    class="actual-point"
+                                    cx="20"
+                                    cy="161"
+                                    r="5"
+                                />
+
+                                <circle
+                                    class="actual-point"
+                                    cx="100"
+                                    cy="154"
+                                    r="5"
+                                />
+
+                                <circle
+                                    class="actual-point"
+                                    cx="180"
+                                    cy="139"
+                                    r="5"
+                                />
+
+                                <circle
+                                    class="actual-point"
+                                    cx="260"
+                                    cy="130"
+                                    r="5"
+                                />
+
+                                <circle
+                                    class="actual-point"
+                                    cx="340"
+                                    cy="122"
+                                    r="5"
+                                />
+
+                                <circle
+                                    class="actual-point"
+                                    cx="420"
+                                    cy="137"
+                                    r="5"
+                                />
+
+                                <circle
+                                    class="actual-point"
+                                    cx="500"
+                                    cy="132"
+                                    r="5"
+                                />
+
+                                <circle
+                                    class="actual-point"
+                                    cx="580"
+                                    cy="124"
+                                    r="5"
+                                />
+
+                                <circle
+                                    class="actual-point"
+                                    cx="660"
+                                    cy="115"
+                                    r="5"
+                                />
+
+                                <circle
+                                    class="actual-point"
+                                    cx="740"
+                                    cy="118"
+                                    r="5"
+                                />
+
+                                <circle
+                                    class="actual-point"
+                                    cx="820"
+                                    cy="101"
+                                    r="5"
+                                />
+
+                                <circle
+                                    class="actual-point"
+                                    cx="900"
+                                    cy="92"
+                                    r="5"
+                                />
+
+                                <circle
+                                    class="actual-point"
+                                    cx="980"
+                                    cy="106"
+                                    r="5"
+                                />
+
+
+                            </svg>
+
+
+
+                            <!-- MONTHS -->
+
+                            <div class="months">
+
+                                <span>Jan</span>
+                                <span>Feb</span>
+                                <span>Mar</span>
+                                <span>Apr</span>
+                                <span>May</span>
+                                <span>Jun</span>
+                                <span>Jul</span>
+                                <span>Aug</span>
+                                <span>Sep</span>
+                                <span>Oct</span>
+                                <span>Nov</span>
+                                <span>Dec</span>
+
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <!-- =================================================
+                         AI PREDICTION SUMMARY
+                    ================================================== -->
+
+                    <div class="panel summary-panel">
+
+
+                        <div class="summary-heading">
+
+
+                            <div class="robot">
+                                🤖
+                            </div>
+
+
+                            AI Prediction Summary
+
+
+                        </div>
+
+
+
+                        <!-- EXPECTED -->
+
+                        <div class="summary-box">
+
+
+                            <div class="summary-label">
+                                Expected Production
+                            </div>
+
+
+                            <div class="summary-value">
+                                44,000 T
+                            </div>
+
+
+                        </div>
+
+
+
+                        <!-- SHORTFALL -->
+
+                        <div class="summary-box">
+
+
+                            <div class="summary-label">
+                                Shortfall
+                            </div>
+
+
+                            <div
+                                class="summary-value red-text"
+                            >
+                                6,000 T
+                            </div>
+
+
+                        </div>
+
+
+
+                        <!-- PERCENTAGE -->
+
+                        <div class="summary-box">
+
+
+                            <div class="summary-label">
+                                Shortfall Percentage
+                            </div>
+
+
+                            <div
+                                class="summary-value red-text"
+                            >
+                                12%
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- =================================================
+                     BOTTOM SECTION
+                ================================================== -->
+
+                <div class="bottom-section">
+
+
+                    <!-- =================================================
+                         SHORTFALL RISK
+                    ================================================== -->
+
+                    <div class="risk-panel">
+
+
+                        <div class="risk-top">
+
+
+                            <div class="risk-icon">
+                                !
+                            </div>
+
+
+                            <div class="risk-title">
+                                Shortfall Risk
+                            </div>
+
+
+                            <div class="risk-level">
+                                Medium
+                            </div>
+
+
+                        </div>
+
+
+
+                        <div class="risk-description">
+
+                            There is a 12% chance that production
+                            will fall short of the target.
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <!-- =================================================
+                         RECOMMENDED ACTIONS
+                    ================================================== -->
+
+                    <div class="actions-panel">
+
+
+                        <div class="actions-heading">
+
+                            <span class="bulb">
+                                ♧
+                            </span>
+
+                            Recommended Actions
+
+                        </div>
+
+
+
+                        <!-- ACTION 1 -->
+
+                        <div class="action">
+
+                            <span class="action-number">
+                                1
+                            </span>
+
+                            Prioritize mining in high-potential
+                            zones (Zone A &amp; C)
+
+                        </div>
+
+
+
+                        <!-- ACTION 2 -->
+
+                        <div class="action">
+
+                            <span class="action-number">
+                                2
+                            </span>
+
+                            Increase exploration &amp; drilling
+                            in Zone B
+
+                        </div>
+
+
+
+                        <!-- ACTION 3 -->
+
+                        <div class="action">
+
+                            <span class="action-number">
+                                3
+                            </span>
+
+                            Optimize equipment allocation and
+                            reduce downtime
+
+                        </div>
+
+
+
+                        <!-- ACTION 4 -->
+
+                        <div class="action">
+
+                            <span class="action-number">
+                                4
+                            </span>
+
+                            Review production schedule for
+                            next quarter
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+            </section>
+
+
+
+            <!-- =================================================
+                 ANCHOR TARGETS
+            ================================================== -->
+
+            <div id="dashboard"></div>
+
+            <div id="mine-overview"></div>
+
+            <div id="reports"></div>
+
+            <div id="settings"></div>
+
+
+        </div>
+
+
+    </main>
+
+
+
+    <!-- =================================================
+         JAVASCRIPT
+    ================================================== -->
+
+    <script>
+
+
+        /* =========================
+           PREDICTION DATA
+        ========================= */
+
+        const predictionData = {
+
+            predictedProduction: 44000,
+
+            targetProduction: 50000,
+
+            shortfall: 6000,
+
+            shortfallPercentage: 12,
+
+            risk: "Medium"
+
+        };
+
+
+        console.log(
+            "MOIL Prediction Data:",
+            predictionData
+        );
+
+
+
+        /* =========================
+           SIDEBAR ACTIVE LINK
+        ========================= */
+
+        const navLinks =
+            document.querySelectorAll(".nav a");
+
+
+        navLinks.forEach(function(link) {
+
+            link.addEventListener(
+                "click",
+                function() {
+
+                    navLinks.forEach(
+                        function(item) {
+
+                            item.classList.remove(
+                                "active"
+                            );
+
+                        }
+                    );
+
+
+                    this.classList.add(
+                        "active"
+                    );
+
+                }
+            );
+
+        });
+
+
+    </script>
+
+
+</body>
+</html>

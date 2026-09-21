@@ -1,0 +1,1307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>MOIL Manganese Intelligence - Settings</title>
+
+<style>
+
+/* =========================
+   RESET
+========================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:#ffffff;
+    color:#111111;
+    overflow-x:hidden;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.header{
+    position:fixed;
+    top:0;
+    left:0;
+
+    width:100%;
+    height:116px;
+
+    background:linear-gradient(
+        105deg,
+        #28478e,
+        #304d9d
+    );
+
+    display:flex;
+    align-items:center;
+
+    padding:0 24px;
+
+    color:white;
+
+    z-index:1000;
+}
+
+
+/* =========================
+   MOIL LOGO
+   CODE DESIGNED
+========================= */
+
+.moil-logo{
+    width:78px;
+    height:78px;
+
+    border-radius:50%;
+
+    background:#1164e8;
+
+    display:flex;
+    flex-direction:column;
+
+    align-items:center;
+    justify-content:center;
+
+    flex-shrink:0;
+
+    margin-right:28px;
+
+    color:white;
+
+    box-shadow:
+        0 2px 5px rgba(0,0,0,0.15);
+}
+
+.moil-hindi{
+    font-size:13px;
+    font-weight:bold;
+
+    line-height:18px;
+
+    margin-bottom:2px;
+}
+
+.moil-english{
+    font-size:13px;
+    font-weight:bold;
+
+    line-height:20px;
+
+    letter-spacing:-0.5px;
+}
+
+
+/* =========================
+   HEADER TEXT
+========================= */
+
+.header-text h1{
+    font-size:34px;
+    font-weight:700;
+
+    margin-bottom:6px;
+}
+
+.header-text p{
+    font-size:20px;
+}
+
+
+/* =========================
+   HEADER USER
+========================= */
+
+.header-user{
+    margin-left:auto;
+
+    display:flex;
+    align-items:center;
+
+    gap:14px;
+
+    font-size:19px;
+}
+
+.user-image{
+    width:58px;
+    height:58px;
+
+    border-radius:50%;
+
+    background:#eeeeee;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:32px;
+}
+
+.arrow{
+    font-size:24px;
+}
+
+
+/* =========================
+   SIDEBAR
+========================= */
+
+.sidebar{
+    position:fixed;
+
+    left:0;
+    top:116px;
+    bottom:0;
+
+    width:300px;
+
+    background:linear-gradient(
+        180deg,
+        #1c315d,
+        #172c58
+    );
+
+    padding:27px 16px;
+
+    z-index:900;
+}
+
+
+/* =========================
+   NAVIGATION
+========================= */
+
+.nav a{
+    height:61px;
+
+    display:flex;
+    align-items:center;
+
+    padding:0 18px;
+
+    margin-bottom:8px;
+
+    border-radius:9px;
+
+    color:white;
+
+    text-decoration:none;
+
+    font-size:20px;
+
+    transition:0.2s;
+}
+
+.nav a:hover{
+    background:rgba(255,255,255,0.10);
+}
+
+.nav a.active{
+    background:#2879e5;
+}
+
+.nav-icon{
+    width:38px;
+
+    margin-right:15px;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    font-size:28px;
+}
+
+
+/* =========================
+   SIDEBAR FOOTER
+========================= */
+
+.sidebar-footer{
+    position:absolute;
+
+    left:22px;
+    bottom:29px;
+
+    color:#a9c5e5;
+
+    font-size:16px;
+
+    line-height:24px;
+}
+
+.sidebar-footer strong{
+    font-size:17px;
+}
+
+
+/* =========================
+   MAIN
+========================= */
+
+.main{
+    margin-left:300px;
+
+    padding-top:116px;
+
+    min-height:100vh;
+}
+
+.content{
+    min-height:calc(100vh - 116px);
+
+    padding:26px 35px 40px;
+
+    position:relative;
+}
+
+
+/* =========================
+   PAGE TITLE
+========================= */
+
+.page-title{
+    color:#172945;
+
+    font-size:36px;
+
+    margin-bottom:24px;
+}
+
+
+/* =========================
+   SETTINGS AREA
+========================= */
+
+.settings-area{
+    position:relative;
+
+    min-height:690px;
+}
+
+
+/* =========================
+   SETTINGS GRID
+========================= */
+
+.settings-grid{
+    display:grid;
+
+    grid-template-columns:310px 310px;
+
+    column-gap:30px;
+
+    row-gap:28px;
+
+    width:650px;
+}
+
+
+/* =========================
+   COMMON CARD
+========================= */
+
+.setting-card{
+    background:#ffffff;
+
+    border:3px solid #2d6caf;
+
+    border-radius:17px;
+
+    box-shadow:
+        0 6px 11px rgba(0,0,0,0.14);
+
+    padding:20px;
+}
+
+.setting-card h3{
+    font-size:25px;
+
+    font-weight:600;
+
+    margin-bottom:18px;
+}
+
+
+/* =========================
+   USER ACCESS
+========================= */
+
+.user-access{
+    height:172px;
+}
+
+.access-row{
+    display:flex;
+
+    align-items:center;
+
+    gap:16px;
+}
+
+.access-icon{
+    width:70px;
+    height:70px;
+
+    border-radius:50%;
+
+    background:#367dcc;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    color:white;
+
+    font-size:43px;
+}
+
+.access-text{
+    font-size:21px;
+}
+
+
+/* =========================
+   SECURITY
+========================= */
+
+.security{
+    height:172px;
+}
+
+.security-row{
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+}
+
+.lock{
+    width:68px;
+    height:68px;
+
+    background:#367dcc;
+
+    color:white;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:31px;
+
+    clip-path:polygon(
+        50% 0%,
+        92% 18%,
+        92% 65%,
+        50% 100%,
+        8% 65%,
+        8% 18%
+    );
+}
+
+
+/* =========================
+   TOGGLE
+========================= */
+
+.toggle{
+    width:69px;
+    height:39px;
+
+    border-radius:25px;
+
+    background:#3279ca;
+
+    position:relative;
+
+    cursor:pointer;
+
+    transition:0.25s;
+}
+
+.toggle::after{
+    content:"";
+
+    position:absolute;
+
+    width:29px;
+    height:29px;
+
+    top:5px;
+    right:5px;
+
+    border-radius:50%;
+
+    background:white;
+
+    transition:0.25s;
+}
+
+.toggle.off{
+    background:white;
+
+    border:3px solid #3478ba;
+}
+
+.toggle.off::after{
+    left:5px;
+    right:auto;
+
+    background:#3478ba;
+}
+
+
+/* =========================
+   DASHBOARD
+========================= */
+
+.dashboard{
+    height:208px;
+}
+
+.dashboard-row{
+    display:flex;
+
+    align-items:center;
+
+    gap:16px;
+
+    margin:12px 0;
+}
+
+.dashboard-row span{
+    font-size:21px;
+}
+
+
+/* =========================
+   REPORTS
+========================= */
+
+.reports{
+    height:193px;
+}
+
+.report-label{
+    font-size:21px;
+
+    margin-bottom:10px;
+}
+
+.report-select{
+    width:100%;
+    height:49px;
+
+    background:#367bca;
+
+    border-radius:8px;
+
+    color:white;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    padding:0 15px;
+
+    font-size:21px;
+
+    cursor:pointer;
+}
+
+.report-arrow{
+    font-size:20px;
+}
+
+
+/* =========================
+   TEAM CARD
+========================= */
+
+.team-card{
+    position:absolute;
+
+    top:0;
+    right:0;
+
+    width:300px;
+    height:162px;
+
+    background:#ffffff;
+
+    border:3px solid #2d6caf;
+
+    border-radius:17px;
+
+    box-shadow:
+        0 6px 11px rgba(0,0,0,0.14);
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:12px;
+}
+
+.team-avatar{
+    width:66px;
+    height:66px;
+
+    border-radius:50%;
+
+    background:#eeeeee;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    font-size:38px;
+}
+
+.team-name{
+    font-size:20px;
+}
+
+
+/* =========================
+   SYSTEM STATUS
+========================= */
+
+.system-status{
+    position:absolute;
+
+    width:490px;
+    height:158px;
+
+    left:50%;
+    bottom:0;
+
+    transform:translateX(-50%);
+
+    background:#ffffff;
+
+    border:3px solid #2d6caf;
+
+    border-radius:17px;
+
+    box-shadow:
+        0 6px 11px rgba(0,0,0,0.14);
+
+    padding:20px;
+}
+
+.system-status h3{
+    text-align:center;
+
+    font-size:25px;
+
+    margin-bottom:20px;
+}
+
+.status-row{
+    display:flex;
+
+    justify-content:space-around;
+
+    text-align:center;
+}
+
+.status{
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    gap:8px;
+}
+
+.status-dot{
+    width:27px;
+    height:27px;
+
+    border-radius:50%;
+
+    background:#43a253;
+}
+
+.status span{
+    font-size:18px;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:1200px){
+
+    .sidebar{
+        width:240px;
+    }
+
+    .main{
+        margin-left:240px;
+    }
+
+    .team-card{
+        right:20px;
+    }
+}
+
+
+@media(max-width:950px){
+
+    .header{
+        position:relative;
+    }
+
+    .sidebar{
+        position:relative;
+
+        top:0;
+
+        width:100%;
+
+        padding:15px;
+    }
+
+    .nav{
+        display:flex;
+
+        flex-wrap:wrap;
+
+        justify-content:center;
+    }
+
+    .nav a{
+        width:190px;
+    }
+
+    .sidebar-footer{
+        display:none;
+    }
+
+    .main{
+        margin-left:0;
+
+        padding-top:0;
+    }
+
+    .settings-grid{
+        grid-template-columns:1fr;
+
+        width:100%;
+    }
+
+    .team-card{
+        position:relative;
+
+        top:auto;
+        right:auto;
+
+        margin-top:30px;
+    }
+
+    .system-status{
+        position:relative;
+
+        left:auto;
+        bottom:auto;
+
+        transform:none;
+
+        margin:40px auto 0;
+    }
+
+    .settings-area{
+        min-height:auto;
+    }
+}
+
+
+@media(max-width:600px){
+
+    .header{
+        height:auto;
+
+        padding:15px;
+    }
+
+    .moil-logo{
+        width:64px;
+        height:64px;
+
+        margin-right:12px;
+    }
+
+    .moil-hindi{
+        font-size:13px;
+    }
+
+    .moil-english{
+        font-size:15px;
+    }
+
+    .header-text h1{
+        font-size:20px;
+    }
+
+    .header-text p{
+        font-size:13px;
+    }
+
+    .header-user{
+        display:none;
+    }
+
+    .content{
+        padding:20px;
+    }
+
+    .page-title{
+        font-size:30px;
+    }
+
+    .system-status{
+        width:100%;
+    }
+
+    .status span{
+        font-size:13px;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- ==================================================
+     HEADER
+================================================== -->
+
+<header class="header">
+
+
+    <!-- CODE BASED MOIL LOGO -->
+
+    <div class="moil-logo">
+
+        <div class="moil-hindi">
+            MANGANEX
+        </div>
+
+        <div class="moil-english">
+            Ai
+        </div>
+
+    </div>
+
+
+    <!-- HEADER TITLE -->
+
+    <div class="header-text">
+
+        <h1>
+            MANGANEX AI
+        </h1>
+
+        <p>
+            AI Powered Reserve Estimation &amp; Production Planning
+        </p>
+
+    </div>
+
+
+    <!-- USER -->
+
+    <div class="header-user">
+
+        <div class="user-image">
+            👤
+        </div>
+
+        <span>
+            Team Nextgen Coders_RDR
+        </span>
+
+        <span class="arrow">
+            ⌄
+        </span>
+
+    </div>
+
+</header>
+
+
+
+<!-- ==================================================
+     SIDEBAR
+================================================== -->
+
+<aside class="sidebar">
+
+
+    <nav class="nav">
+
+
+        <!-- DASHBOARD -->
+
+        <a href="dashboard1.html">
+
+            <span class="nav-icon">
+                ⌂
+            </span>
+
+            Dashboard
+
+        </a>
+
+
+        <!-- MINE OVERVIEW -->
+
+        <a href="mine-overview.html">
+
+            <span class="nav-icon">
+                ⚒
+            </span>
+
+            Mine Overview
+
+        </a>
+
+
+        <!-- PREDICTIONS -->
+
+        <a href="predictions.html">
+
+            <span class="nav-icon">
+                ▥
+            </span>
+
+            Predictions
+
+        </a>
+
+
+        <!-- REPORTS -->
+
+        <a href="reports.html">
+
+            <span class="nav-icon">
+                ▤
+            </span>
+
+            Reports
+
+        </a>
+
+
+        <!-- SETTINGS -->
+
+        <a href="settings.html" class="active">
+
+            <span class="nav-icon">
+                ⚙
+            </span>
+
+            Settings
+
+        </a>
+
+
+    </nav>
+
+
+    <!-- SIDEBAR FOOTER -->
+
+    <div class="sidebar-footer">
+
+        <strong>
+            MANGANEX AI
+        </strong>
+
+        <br>
+
+        Manganese for a
+
+        <br>
+
+        stronger tomorrow
+
+    </div>
+
+
+</aside>
+
+
+
+<!-- ==================================================
+     MAIN CONTENT
+================================================== -->
+
+<main class="main">
+
+
+    <section class="content" id="settings">
+
+
+        <!-- PAGE TITLE -->
+
+        <h2 class="page-title">
+            Settings
+        </h2>
+
+
+
+        <div class="settings-area">
+
+
+            <!-- ==================================================
+                 SETTINGS CARDS
+            ================================================== -->
+
+            <div class="settings-grid">
+
+
+                <!-- USER ACCESS -->
+
+                <div class="setting-card user-access">
+
+                    <h3>
+                        User Access
+                    </h3>
+
+
+                    <div class="access-row">
+
+                        <div class="access-icon">
+                            ♙
+                        </div>
+
+                        <div class="access-text">
+                            Role-based access.
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- SECURE AUTHENTICATION -->
+
+                <div class="setting-card security">
+
+                    <h3>
+                        Secure authentication
+                    </h3>
+
+
+                    <div class="security-row">
+
+                        <div class="lock">
+                            🔒
+                        </div>
+
+
+                        <div
+                            class="toggle"
+                            id="securityToggle">
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- DASHBOARD -->
+
+                <div class="setting-card dashboard">
+
+                    <h3>
+                        Dashboard
+                    </h3>
+
+
+                    <div class="dashboard-row">
+
+                        <div
+                            class="toggle"
+                            id="notificationToggle">
+                        </div>
+
+                        <span>
+                            Notifications
+                        </span>
+
+                    </div>
+
+
+                    <div class="dashboard-row">
+
+                        <div
+                            class="toggle off"
+                            id="themeToggle">
+                        </div>
+
+                        <span>
+                            Theme
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- REPORTS -->
+
+                <div class="setting-card reports">
+
+                    <h3>
+                        Reports
+                    </h3>
+
+
+                    <div class="report-label">
+                        Report format
+                    </div>
+
+
+                    <div
+                        class="report-select"
+                        id="reportSelect">
+
+                        <span id="reportText">
+                            PDF
+                        </span>
+
+                        <span class="report-arrow">
+                            ▼
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- ==================================================
+                 TEAM CARD
+            ================================================== -->
+
+            <div class="team-card">
+
+                <div class="team-avatar">
+                    👤
+                </div>
+
+                <div class="team-name">
+                    Team Nextgen Coders_RDP
+                </div>
+
+            </div>
+
+
+
+            <!-- ==================================================
+                 SYSTEM STATUS
+            ================================================== -->
+
+            <div class="system-status">
+
+                <h3>
+                    System Status
+                </h3>
+
+
+                <div class="status-row">
+
+
+                    <div class="status">
+
+                        <div class="status-dot">
+                        </div>
+
+                        <span>
+                            User Access
+                        </span>
+
+                    </div>
+
+
+                    <div class="status">
+
+                        <div class="status-dot">
+                        </div>
+
+                        <span>
+                            Secure authentication
+                        </span>
+
+                    </div>
+
+
+                    <div class="status">
+
+                        <div class="status-dot">
+                        </div>
+
+                        <span>
+                            Reports
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+</main>
+
+
+
+<!-- ==================================================
+     JAVASCRIPT
+================================================== -->
+
+<script>
+
+
+/* =========================
+   SECURITY TOGGLE
+========================= */
+
+document
+.getElementById("securityToggle")
+.addEventListener("click", function(){
+
+    this.classList.toggle("off");
+
+});
+
+
+
+/* =========================
+   NOTIFICATION TOGGLE
+========================= */
+
+document
+.getElementById("notificationToggle")
+.addEventListener("click", function(){
+
+    this.classList.toggle("off");
+
+});
+
+
+
+/* =========================
+   THEME TOGGLE
+========================= */
+
+document
+.getElementById("themeToggle")
+.addEventListener("click", function(){
+
+    this.classList.toggle("off");
+
+});
+
+
+
+/* =========================
+   REPORT FORMAT
+========================= */
+
+document
+.getElementById("reportSelect")
+.addEventListener("click", function(){
+
+    const text =
+        document.getElementById("reportText");
+
+
+    if(text.innerText === "PDF"){
+
+        text.innerText = "Excel";
+
+    }
+
+    else{
+
+        text.innerText = "PDF";
+
+    }
+
+});
+
+
+
+/* =========================
+   SIDEBAR ACTIVE
+========================= */
+
+const links =
+    document.querySelectorAll(".nav a");
+
+
+links.forEach(function(link){
+
+    link.addEventListener("click", function(){
+
+        links.forEach(function(item){
+
+            item.classList.remove("active");
+
+        });
+
+
+        this.classList.add("active");
+
+    });
+
+});
+
+</script>
+
+</body>
+</html>

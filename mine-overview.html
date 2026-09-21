@@ -1,0 +1,1387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MOIL Manganese Intelligence</title>
+
+    <!-- Leaflet CSS -->
+    <link
+        rel="stylesheet"
+        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    />
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #f7faff;
+            color: #173d73;
+            overflow-x: hidden;
+        }
+
+        /* =========================
+           MAIN LAYOUT
+        ========================= */
+
+        .dashboard {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* =========================
+           SIDEBAR
+        ========================= */
+
+        .sidebar {
+            width: 230px;
+            min-height: 100vh;
+            background: linear-gradient(180deg, #0c315d, #0b2d56);
+            color: white;
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            z-index: 1000;
+            padding-top: 18px;
+        }
+
+        .logo {
+            width: 92px;
+            height: 92px;
+            background: #0754d8;
+            border-radius: 50%;
+            margin: 0 auto 25px auto;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            text-align: center;
+            color: white;
+            font-size: 13px;
+            line-height: 25px;
+            font-weight: bold;
+
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+        }
+
+        .logo span {
+            display: block;
+        }
+
+        .nav {
+            padding: 0 8px;
+        }
+
+        .nav a {
+            height: 56px;
+            margin-bottom: 5px;
+
+            display: flex;
+            align-items: center;
+
+            padding: 0 18px;
+
+            color: #ffffff;
+            text-decoration: none;
+
+            font-size: 16px;
+            border-radius: 8px;
+
+            transition: 0.2s;
+        }
+
+        .nav a:hover {
+            background: rgba(255,255,255,0.12);
+        }
+
+        .nav a.active {
+            background: linear-gradient(90deg, #187bf0, #287de7);
+            box-shadow: 0 3px 8px rgba(0,0,0,0.12);
+        }
+
+        .nav-icon {
+            width: 30px;
+            font-size: 25px;
+            margin-right: 10px;
+            text-align: center;
+        }
+
+        .company-info {
+            position: absolute;
+            left: 22px;
+            bottom: 62px;
+            color: #9bbce4;
+            line-height: 25px;
+            font-size: 14px;
+        }
+
+        .company-info strong {
+            color: #9ec2ed;
+            font-size: 16px;
+        }
+
+        /* =========================
+           MAIN AREA
+        ========================= */
+
+        .main {
+            margin-left: 230px;
+            width: calc(100% - 230px);
+            min-height: 100vh;
+        }
+
+        /* =========================
+           HEADER
+        ========================= */
+
+        .header {
+            height: 95px;
+            background: linear-gradient(100deg, #173e72, #16477f);
+            color: white;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 28px 0 22px;
+        }
+
+        .header-title h1 {
+            font-size: 30px;
+            margin-bottom: 7px;
+            font-weight: 700;
+        }
+
+        .header-title p {
+            font-size: 17px;
+            color: #e4edfa;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .bell {
+            font-size: 27px;
+        }
+
+        .divider {
+            height: 42px;
+            width: 1px;
+            background: rgba(255,255,255,0.6);
+        }
+
+        .user {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 15px;
+        }
+
+        .user-circle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: white;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            color: #a5b5ca;
+            font-size: 25px;
+        }
+
+        /* =========================
+           CONTENT
+        ========================= */
+
+        .content {
+            padding: 24px 22px 35px 22px;
+        }
+
+        .page-title {
+            font-size: 29px;
+            color: #163d70;
+            margin-bottom: 16px;
+        }
+
+        /* =========================
+           KPI CARDS
+        ========================= */
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 19px;
+            margin-bottom: 18px;
+        }
+
+        .card {
+            height: 117px;
+
+            border: 1px solid #c8ddf6;
+            border-radius: 7px;
+
+            background: linear-gradient(
+                110deg,
+                #f8fbff,
+                #f4f9ff
+            );
+
+            display: flex;
+            align-items: center;
+
+            padding: 15px 18px;
+        }
+
+        .card-icon {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            color: white;
+            font-size: 28px;
+            margin-right: 22px;
+            flex-shrink: 0;
+        }
+
+        .blue {
+            background: linear-gradient(145deg, #277af0, #1262df);
+        }
+
+        .green {
+            background: linear-gradient(145deg, #32bd7a, #18a466);
+        }
+
+        .purple {
+            background: linear-gradient(145deg, #8671e7, #6954d7);
+        }
+
+        .orange {
+            background: linear-gradient(145deg, #ffa51d, #f28b00);
+        }
+
+        .card-title {
+            font-size: 16px;
+            color: #21457a;
+            margin-bottom: 10px;
+        }
+
+        .card-value {
+            font-size: 31px;
+            font-weight: bold;
+            color: #143d75;
+        }
+
+        /* =========================
+           MIDDLE SECTION
+        ========================= */
+
+        .middle {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+            align-items: start;
+        }
+
+        /* =========================
+           PANEL
+        ========================= */
+
+        .panel {
+            background: white;
+            border: 1px solid #d5e4f5;
+            border-radius: 8px;
+            padding: 10px;
+            box-shadow: 0 2px 8px rgba(28,74,126,0.03);
+        }
+
+        .panel-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #163c70;
+            padding: 0 3px 8px 3px;
+        }
+
+        /* =========================
+           MAP
+        ========================= */
+
+        #map {
+            width: 100%;
+            height: 300px;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .map-wrapper {
+            position: relative;
+        }
+
+        .map-legend {
+            position: absolute;
+            left: 15px;
+            bottom: 12px;
+            z-index: 500;
+
+            background: rgba(255,255,255,0.94);
+            padding: 8px 12px;
+            border-radius: 5px;
+
+            font-size: 12px;
+            color: #24466f;
+        }
+
+        .legend-row {
+            display: flex;
+            align-items: center;
+            margin: 4px 0;
+        }
+
+        .legend-color {
+            width: 13px;
+            height: 13px;
+            border-radius: 3px;
+            margin-right: 7px;
+        }
+
+        .legend-red {
+            background: #ef4444;
+        }
+
+        .legend-yellow {
+            background: #f5b832;
+        }
+
+        .legend-green {
+            background: #22c55e;
+        }
+
+        /* =========================
+           TABLE
+        ========================= */
+
+        .table-panel {
+            min-height: 354px;
+        }
+
+        .zone-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 4px;
+            font-size: 14px;
+        }
+
+        .zone-table th {
+            background: #edf4fc;
+            color: #173d73;
+            font-weight: bold;
+            padding: 17px 12px;
+            text-align: left;
+        }
+
+        .zone-table td {
+            padding: 13px 12px;
+            border-bottom: 1px solid #e1eaf4;
+            color: #244b7e;
+        }
+
+        .zone-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .potential {
+            display: inline-block;
+            padding: 4px 9px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .high {
+            background: #ffd0d0;
+            color: #ef4b4b;
+        }
+
+        .medium {
+            background: #ffe6a9;
+            color: #ee9800;
+        }
+
+        .high-green {
+            background: #d6edbd;
+            color: #5b9b30;
+        }
+
+        .low {
+            background: #c9f0d5;
+            color: #27a64e;
+        }
+
+        /* =========================
+           CHART
+        ========================= */
+
+        .chart-panel {
+            margin-top: 8px;
+            height: 220px;
+        }
+
+        .chart-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            font-size: 18px;
+            font-weight: bold;
+            color: #163d72;
+
+            padding: 0 5px 5px;
+        }
+
+        .chart-icon {
+            font-size: 23px;
+        }
+
+        .chart {
+            height: 160px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+
+            border-left: 2px solid #a9c3e1;
+            border-bottom: 2px solid #a9c3e1;
+
+            margin: 5px 8px 0 60px;
+            position: relative;
+        }
+
+        .grid-line {
+            position: absolute;
+            left: 0;
+            width: 100%;
+            border-top: 1px solid #e3edf8;
+        }
+
+        .line1 {
+            top: 20%;
+        }
+
+        .line2 {
+            top: 40%;
+        }
+
+        .line3 {
+            top: 60%;
+        }
+
+        .line4 {
+            top: 80%;
+        }
+
+        .bar-container {
+            width: 12%;
+            height: 100%;
+            position: relative;
+
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+        }
+
+        .bar {
+            width: 65%;
+            min-width: 45px;
+            border-radius: 5px 5px 0 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        .bar1 {
+            height: 82%;
+            background: #3c86ed;
+        }
+
+        .bar2 {
+            height: 64%;
+            background: #ffba4b;
+        }
+
+        .bar3 {
+            height: 48%;
+            background: #39b57b;
+        }
+
+        .bar4 {
+            height: 32%;
+            background: #826de4;
+        }
+
+        .bar5 {
+            height: 21%;
+            background: #ed5d65;
+        }
+
+        .bar-value {
+            position: absolute;
+            top: -24px;
+            font-size: 13px;
+            font-weight: bold;
+            color: #173d73;
+            z-index: 3;
+        }
+
+        .bar-label {
+            position: absolute;
+            bottom: -28px;
+            font-size: 13px;
+            color: #244b7e;
+            white-space: nowrap;
+        }
+
+        .y-label {
+            position: absolute;
+            left: -53px;
+            color: #254a7b;
+            font-size: 13px;
+        }
+
+        .y1 { top: -2px; }
+        .y2 { top: 25%; }
+        .y3 { top: 50%; }
+        .y4 { top: 75%; }
+        .y5 { bottom: -5px; }
+
+        /* =========================
+           ANCHOR TARGET SECTIONS
+        ========================= */
+
+        .extra-section {
+            margin-top: 35px;
+            background: white;
+            border: 1px solid #d5e4f5;
+            border-radius: 8px;
+            padding: 25px;
+        }
+
+        .extra-section h2 {
+            color: #173d73;
+            margin-bottom: 10px;
+        }
+
+        .extra-section p {
+            color: #57759a;
+            line-height: 1.6;
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 1200px) {
+
+            .cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .middle {
+                grid-template-columns: 1fr;
+            }
+
+            .table-panel {
+                min-height: auto;
+            }
+        }
+
+        @media (max-width: 800px) {
+
+            .sidebar {
+                width: 190px;
+            }
+
+            .main {
+                margin-left: 190px;
+                width: calc(100% - 190px);
+            }
+
+            .header-title h1 {
+                font-size: 22px;
+            }
+
+            .header-title p {
+                font-size: 13px;
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+
+            .user {
+                display: none;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <!-- =========================
+         SIDEBAR
+    ========================== -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+            <span>MANGANEX<br>AI</span>
+        </div>
+
+        <nav class="nav">
+
+            <a href="dashboard1.html">
+                <span class="nav-icon">⌂</span>
+                Dashboard
+            </a>
+
+            <a href="mine-overview.html" class="active">
+                <span class="nav-icon">⛰</span>
+                Mine Overview
+            </a>
+
+            <a href="predictions.html">
+                <span class="nav-icon">🧠</span>
+                Predictions
+            </a>
+
+            <a href="reports.html">
+                <span class="nav-icon">▤</span>
+                Reports
+            </a>
+
+            <a href="settings.html">
+                <span class="nav-icon">⚙</span>
+                Settings
+            </a>
+
+        </nav>
+
+        <div class="company-info">
+            <strong>MANGANEX AI</strong><br>
+            Manganese for a<br>
+            stronger tomorrow
+        </div>
+
+    </aside>
+
+
+    <!-- =========================
+         MAIN
+    ========================== -->
+
+    <main class="main">
+
+        <!-- HEADER -->
+
+        <header class="header">
+
+            <div class="header-title">
+
+                <h1>MANGANEX AI </h1>
+
+                <p>
+                    AI Powered Reserve Estimation &amp; Production Planning
+                </p>
+
+            </div>
+
+            <div class="header-right">
+
+                <div class="bell">♧</div>
+
+                <div class="divider"></div>
+
+                <div class="user">
+
+                    <div class="user-circle">
+                        ●
+                    </div>
+
+                    <span>Team Nextgen Coders_RDR</span>
+
+                    <span>⌄</span>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- CONTENT -->
+
+        <div class="content" id="dashboard">
+
+            <h2 class="page-title" id="mine-overview">
+                Mine Overview
+            </h2>
+
+
+            <!-- =========================
+                 KPI CARDS
+            ========================== -->
+
+            <section class="cards">
+
+                <div class="card">
+
+                    <div class="card-icon blue">
+                        ◉
+                    </div>
+
+                    <div>
+                        <div class="card-title">
+                            Estimated Reserves
+                        </div>
+
+                        <div class="card-value">
+                            2.48 MT
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="card">
+
+                    <div class="card-icon green">
+                        ▮
+                    </div>
+
+                    <div>
+                        <div class="card-title">
+                            Avg. Grade
+                        </div>
+
+                        <div class="card-value">
+                            36.5 %
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="card">
+
+                    <div class="card-icon purple">
+                        ⛰
+                    </div>
+
+                    <div>
+                        <div class="card-title">
+                            Mine Area
+                        </div>
+
+                        <div class="card-value">
+                            12.6 km²
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="card">
+
+                    <div class="card-icon orange">
+                        ●
+                    </div>
+
+                    <div>
+                        <div class="card-title">
+                            Active Zones
+                        </div>
+
+                        <div class="card-value">
+                            5
+                        </div>
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =========================
+                 MAP + TABLE
+            ========================== -->
+
+            <section class="middle">
+
+                <!-- MAP -->
+
+                <div class="panel">
+
+                    <div class="panel-title">
+                        Mine Area - Potential Manganese Zones
+                    </div>
+
+                    <div class="map-wrapper">
+
+                        <div id="map"></div>
+
+                        <div class="map-legend">
+
+                            <div class="legend-row">
+                                <span class="legend-color legend-red"></span>
+                                High Potential
+                            </div>
+
+                            <div class="legend-row">
+                                <span class="legend-color legend-yellow"></span>
+                                Medium Potential
+                            </div>
+
+                            <div class="legend-row">
+                                <span class="legend-color legend-green"></span>
+                                Low Potential
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- TABLE -->
+
+                <div class="panel table-panel">
+
+                    <div class="panel-title">
+                        Top Potential Zones
+                    </div>
+
+                    <table class="zone-table">
+
+                        <thead>
+
+                            <tr>
+                                <th>Zone</th>
+                                <th>Potential</th>
+                                <th>Est. Reserve (MT)</th>
+                                <th>Avg. Grade (%)</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            <tr>
+                                <td>Zone A</td>
+
+                                <td>
+                                    <span class="potential high">
+                                        High
+                                    </span>
+                                </td>
+
+                                <td>0.82</td>
+                                <td>36.5</td>
+                            </tr>
+
+
+                            <tr>
+                                <td>Zone B</td>
+
+                                <td>
+                                    <span class="potential medium">
+                                        Medium
+                                    </span>
+                                </td>
+
+                                <td>0.64</td>
+                                <td>32.8</td>
+                            </tr>
+
+
+                            <tr>
+                                <td>Zone C</td>
+
+                                <td>
+                                    <span class="potential high-green">
+                                        High
+                                    </span>
+                                </td>
+
+                                <td>0.48</td>
+                                <td>34.2</td>
+                            </tr>
+
+
+                            <tr>
+                                <td>Zone D</td>
+
+                                <td>
+                                    <span class="potential medium">
+                                        Medium
+                                    </span>
+                                </td>
+
+                                <td>0.32</td>
+                                <td>28.7</td>
+                            </tr>
+
+
+                            <tr>
+                                <td>Zone E</td>
+
+                                <td>
+                                    <span class="potential low">
+                                        Low
+                                    </span>
+                                </td>
+
+                                <td>0.21</td>
+                                <td>24.9</td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+
+            <!-- =========================
+                 CHART
+            ========================== -->
+
+            <section class="panel chart-panel">
+
+                <div class="chart-header">
+
+                    <span class="chart-icon">
+                        📊
+                    </span>
+
+                    <span>
+                        Reserve Estimation by Zone
+                    </span>
+
+                </div>
+
+
+                <div class="chart">
+
+                    <!-- Grid -->
+
+                    <div class="grid-line line1"></div>
+                    <div class="grid-line line2"></div>
+                    <div class="grid-line line3"></div>
+                    <div class="grid-line line4"></div>
+
+
+                    <!-- Y Axis -->
+
+                    <span class="y-label y1">1.0</span>
+                    <span class="y-label y2">0.8</span>
+                    <span class="y-label y3">0.6</span>
+                    <span class="y-label y4">0.4</span>
+                    <span class="y-label y5">0.0</span>
+
+
+                    <!-- Zone A -->
+
+                    <div class="bar-container">
+
+                        <div class="bar bar1">
+                            <span class="bar-value">0.82</span>
+                        </div>
+
+                        <span class="bar-label">
+                            Zone A
+                        </span>
+
+                    </div>
+
+
+                    <!-- Zone B -->
+
+                    <div class="bar-container">
+
+                        <div class="bar bar2">
+                            <span class="bar-value">0.64</span>
+                        </div>
+
+                        <span class="bar-label">
+                            Zone B
+                        </span>
+
+                    </div>
+
+
+                    <!-- Zone C -->
+
+                    <div class="bar-container">
+
+                        <div class="bar bar3">
+                            <span class="bar-value">0.48</span>
+                        </div>
+
+                        <span class="bar-label">
+                            Zone C
+                        </span>
+
+                    </div>
+
+
+                    <!-- Zone D -->
+
+                    <div class="bar-container">
+
+                        <div class="bar bar4">
+                            <span class="bar-value">0.32</span>
+                        </div>
+
+                        <span class="bar-label">
+                            Zone D
+                        </span>
+
+                    </div>
+
+
+                    <!-- Zone E -->
+
+                    <div class="bar-container">
+
+                        <div class="bar bar5">
+                            <span class="bar-value">0.21</span>
+                        </div>
+
+                        <span class="bar-label">
+                            Zone E
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =========================
+                 ANCHOR SECTIONS
+            ========================== -->
+
+            <section class="extra-section" id="predictions">
+
+                <h2>Predictions</h2>
+
+                <p>
+                    AI/ML based reserve estimation and production
+                    shortfall prediction module.
+                </p>
+
+            </section>
+
+
+            <section class="extra-section" id="reports">
+
+                <h2>Reports</h2>
+
+                <p>
+                    Mine reserve reports, production trends,
+                    potential zones and risk reports.
+                </p>
+
+            </section>
+
+
+            <section class="extra-section" id="settings">
+
+                <h2>Settings</h2>
+
+                <p>
+                    Dashboard configuration and system settings.
+                </p>
+
+            </section>
+
+        </div>
+
+    </main>
+
+</div>
+
+
+<!-- =========================
+     LEAFLET JAVASCRIPT
+========================= -->
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+
+<script>
+
+    /* =========================================
+       MAP
+    ========================================= */
+
+    const map = L.map("map").setView(
+        [21.475, 79.215],
+        13
+    );
+
+
+    /* =========================================
+       OPENSTREETMAP
+    ========================================= */
+
+    const openStreetMap = L.tileLayer(
+        "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+        {
+            maxZoom: 19,
+            attribution: "&copy; OpenStreetMap contributors"
+        }
+    );
+
+
+    /* =========================================
+       SATELLITE
+    ========================================= */
+
+    const satellite = L.tileLayer(
+        "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+        {
+            maxZoom: 19,
+            attribution: "Tiles &copy; Esri"
+        }
+    );
+
+
+    /* Default satellite like screenshot */
+
+    satellite.addTo(map);
+
+
+    /* =========================================
+       MAP LAYER SWITCHER
+    ========================================= */
+
+    const baseMaps = {
+
+        "Satellite": satellite,
+
+        "OpenStreetMap": openStreetMap
+
+    };
+
+    L.control.layers(baseMaps).addTo(map);
+
+
+    /* =========================================
+       HIGH POTENTIAL ZONE
+    ========================================= */
+
+    const highZone = L.polygon(
+
+        [
+            [21.488, 79.192],
+            [21.494, 79.207],
+            [21.487, 79.222],
+            [21.469, 79.221],
+            [21.461, 79.207],
+            [21.468, 79.192]
+        ],
+
+        {
+            color: "#ff3b30",
+            fillColor: "#ef4444",
+            fillOpacity: 0.52,
+            weight: 2
+        }
+
+    ).addTo(map);
+
+
+    highZone.bindPopup(
+        "<b>High Potential</b><br>Estimated Reserve: 0.82 MT<br>Avg. Grade: 36.5%"
+    );
+
+
+    /* =========================================
+       MEDIUM POTENTIAL ZONE
+    ========================================= */
+
+    const mediumZone = L.polygon(
+
+        [
+            [21.488, 79.221],
+            [21.493, 79.238],
+            [21.481, 79.251],
+            [21.463, 79.245],
+            [21.461, 79.226],
+            [21.471, 79.218]
+        ],
+
+        {
+            color: "#f5a623",
+            fillColor: "#f5b832",
+            fillOpacity: 0.52,
+            weight: 2
+        }
+
+    ).addTo(map);
+
+
+    mediumZone.bindPopup(
+        "<b>Medium Potential</b><br>Estimated Reserve: 0.64 MT<br>Avg. Grade: 32.8%"
+    );
+
+
+    /* =========================================
+       LOW POTENTIAL ZONE
+    ========================================= */
+
+    const lowZone = L.polygon(
+
+        [
+            [21.481, 79.246],
+            [21.487, 79.267],
+            [21.474, 79.282],
+            [21.456, 79.274],
+            [21.449, 79.257],
+            [21.461, 79.243]
+        ],
+
+        {
+            color: "#20a85a",
+            fillColor: "#22c55e",
+            fillOpacity: 0.48,
+            weight: 2
+        }
+
+    ).addTo(map);
+
+
+    lowZone.bindPopup(
+        "<b>Low Potential</b><br>Estimated Reserve: 0.21 MT<br>Avg. Grade: 24.9%"
+    );
+
+
+    /* =========================================
+       ZONE MARKERS
+    ========================================= */
+
+    L.circleMarker(
+        [21.480, 79.205],
+        {
+            radius: 7,
+            color: "#ff3b30",
+            fillColor: "#ff3b30",
+            fillOpacity: 1
+        }
+    )
+    .addTo(map)
+    .bindTooltip("High Potential");
+
+
+    L.circleMarker(
+        [21.477, 79.236],
+        {
+            radius: 7,
+            color: "#f5a623",
+            fillColor: "#f5a623",
+            fillOpacity: 1
+        }
+    )
+    .addTo(map)
+    .bindTooltip("Medium Potential");
+
+
+    L.circleMarker(
+        [21.468, 79.262],
+        {
+            radius: 7,
+            color: "#20c866",
+            fillColor: "#20c866",
+            fillOpacity: 1
+        }
+    )
+    .addTo(map)
+    .bindTooltip("Low Potential");
+
+
+    /* =========================================
+       NORTH MARKER
+    ========================================= */
+
+    L.marker(
+        [21.503, 79.275]
+    )
+    .addTo(map)
+    .bindTooltip("N", {
+        permanent: true,
+        direction: "center",
+        className: "north-label"
+    });
+
+
+    /* =========================================
+       SIDEBAR ACTIVE LINK
+    ========================================= */
+
+    const links = document.querySelectorAll(".nav a");
+
+    links.forEach(function(link) {
+
+        link.addEventListener("click", function() {
+
+            links.forEach(function(item) {
+                item.classList.remove("active");
+            });
+
+            this.classList.add("active");
+
+        });
+
+    });
+
+
+    /* =========================================
+       MAP RESIZE
+    ========================================= */
+
+    setTimeout(function() {
+
+        map.invalidateSize();
+
+    }, 500);
+
+</script>
+
+</body>
+</html>
